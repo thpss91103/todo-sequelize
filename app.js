@@ -86,6 +86,18 @@ app.get('/users/logout', (req, res) => {
   res.send('logout')
 })
 
+app.get('/new', (req, res) => {
+  return res.render('new')
+})
+
+app.post('/', (req, res) => {
+  const userId = req.user._id
+  const name = req.body.name
+  return Todo.create({ name, userId })
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 app.listen(PORT, () => {
   console.log(`App is running on http://localhost:${PORT}`)
 })
